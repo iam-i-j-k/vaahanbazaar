@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import api from '../utils/api';
 
@@ -32,10 +31,13 @@ const Models = () => {
     e.preventDefault();
     setSubmitting(true);
     try {
+      const token = localStorage.getItem('token');
+      const headers = { Authorization: `Bearer ${token}` };
+      
       if (editingId) {
-        await api.put(`/api/models/${editingId}`, form);
+        await api.put(`/api/models/${editingId}`, form, { headers });
       } else {
-        await api.post('/api/models', form);
+        await api.post('/api/models', form, { headers });
       }
       setForm(initialForm);
       setEditingId(null);
@@ -55,7 +57,10 @@ const Models = () => {
   const handleDelete = async id => {
     if (!window.confirm('Delete this model?')) return;
     try {
-      await api.delete(`/api/models/${id}`);
+      const token = localStorage.getItem('token');
+      await api.delete(`/api/models/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       fetchModels();
     } catch (err) {
       setError('Failed to delete model');
