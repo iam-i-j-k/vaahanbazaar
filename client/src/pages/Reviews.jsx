@@ -17,7 +17,11 @@ const Reviews = () => {
 
   const fetchReviews = async () => {
     try {
+<<<<<<< HEAD
       const res = await api.get('http://localhost:5000/api/reviews');
+=======
+      const res = await api.get('/api/reviews');
+>>>>>>> 9d22085ec45dbcaa38475f5bd82f1b9fd2c4868b
       setReviews(res.data);
     } catch (err) {
       setError('Failed to fetch reviews');
@@ -26,7 +30,11 @@ const Reviews = () => {
 
   const fetchModels = async () => {
     try {
+<<<<<<< HEAD
       const res = await api.get('http://localhost:5000/api/models');
+=======
+      const res = await api.get('/api/models');
+>>>>>>> 9d22085ec45dbcaa38475f5bd82f1b9fd2c4868b
       setModels(res.data);
     } catch (err) {
       console.error('Failed to fetch models');
@@ -50,7 +58,11 @@ const Reviews = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
+<<<<<<< HEAD
       await api.post('http://localhost:5000/api/reviews', form, {
+=======
+      await api.post('/api/reviews', form, {
+>>>>>>> 9d22085ec45dbcaa38475f5bd82f1b9fd2c4868b
         headers: { Authorization: `Bearer ${token}` }
       });
       setForm({ modelId: '', rating: 5, comment: '' });

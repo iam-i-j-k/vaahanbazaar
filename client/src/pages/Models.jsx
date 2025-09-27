@@ -35,9 +35,15 @@ const Models = () => {
       const headers = { Authorization: `Bearer ${token}` };
       
       if (editingId) {
+<<<<<<< HEAD
         await api.put(`http://localhost:5000/api/models/${editingId}`, form, { headers });
       } else {
         await api.post('http://localhost:5000/api/models', form, { headers });
+=======
+        await api.put(`/api/models/${editingId}`, form, { headers });
+      } else {
+        await api.post('/api/models', form, { headers });
+>>>>>>> 9d22085ec45dbcaa38475f5bd82f1b9fd2c4868b
       }
       setForm(initialForm);
       setEditingId(null);
@@ -58,7 +64,11 @@ const Models = () => {
     if (!window.confirm('Delete this model?')) return;
     try {
       const token = localStorage.getItem('token');
+<<<<<<< HEAD
       await api.delete(`http://localhost:5000/api/models/${id}`, {
+=======
+      await api.delete(`/api/models/${id}`, {
+>>>>>>> 9d22085ec45dbcaa38475f5bd82f1b9fd2c4868b
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchModels();

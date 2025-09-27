@@ -3,78 +3,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import api from '../utils/api';
 
 const Bookings = () => {
-  const { user } = useContext(AuthContext);
-  const [bookings, setBookings] = useState([]);
-  const [listings, setListings] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [showForm, setShowForm] = useState(false);
-  const [form, setForm] = useState({
-    listingId: '',
-    appointmentTs: ''
-  });
-
-  const fetchBookings = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const res = await api.get('http://localhost:5000/api/bookings', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setBookings(res.data);
-    } catch (err) {
-      setError('Failed to fetch bookings');
-    }
-  };
-
-  const fetchListings = async () => {
-    try {
-      const res = await api.get('http://localhost:5000/api/listings');
-      setListings(res.data);
-    } catch (err) {
-      console.error('Failed to fetch listings');
-    }
-  };
-
-  useEffect(() => {
-    const loadData = async () => {
-      setLoading(true);
-      await Promise.all([fetchBookings(), fetchListings()]);
-      setLoading(false);
-    };
-    loadData();
-  }, []);
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const token = localStorage.getItem('token');
-      await api.post('http://localhost:5000/api/bookings', form, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setForm({ listingId: '', appointmentTs: '' });
-      setShowForm(false);
-      fetchBookings();
-    } catch (err) {
-      setError('Failed to create booking');
-    }
-  };
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'confirmed': return 'bg-green-100 text-green-800';
-      case 'completed': return 'bg-blue-100 text-blue-800';
-      case 'cancelled': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
-
-  if (loading) return <div className="text-center py-8">Loading...</div>;
-
+  // TODO: Fetch and display bookings from backend
   return (
     <div className="max-w-6xl mx-auto py-8">
       <div className="flex justify-between items-center mb-6">
