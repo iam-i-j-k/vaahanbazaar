@@ -18,6 +18,7 @@ import DealerDashboard from './pages/DealerDashboard';
 import DealersListing from './pages/DealersListing';
 import Profile from './pages/Profile';
 import DealerBookings from './pages/DealerBookings';
+import UserProfile from './pages/UserProfile';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
             <Route path="/favorites" element={<ProtectedRoute><Favorites /></ProtectedRoute>} />
             <Route path="/reviews" element={<ProtectedRoute><Reviews /></ProtectedRoute>} />
             <Route path="/price-alerts" element={<ProtectedRoute><PriceAlerts /></ProtectedRoute>} />
+            <Route path="/user/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
             <Route path="/dealer/dashboard" element={
               <ProtectedRoute roles={['dealer']}>
