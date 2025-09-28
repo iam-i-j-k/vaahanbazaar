@@ -14,11 +14,7 @@ const Favorites = () => {
   const fetchFavorites = async () => {
     try {
       const token = localStorage.getItem('token');
-<<<<<<< HEAD
       const res = await api.get('http://localhost:5000/api/favorites', {
-=======
-      const res = await api.get('/api/favorites', {
->>>>>>> 9d22085ec45dbcaa38475f5bd82f1b9fd2c4868b
         headers: { Authorization: `Bearer ${token}` }
       });
       setFavorites(res.data);
@@ -29,11 +25,7 @@ const Favorites = () => {
 
   const fetchModels = async () => {
     try {
-<<<<<<< HEAD
       const res = await api.get('http://localhost:5000/api/models');
-=======
-      const res = await api.get('/api/models');
->>>>>>> 9d22085ec45dbcaa38475f5bd82f1b9fd2c4868b
       setModels(res.data);
     } catch (err) {
       console.error('Failed to fetch models');
@@ -53,11 +45,7 @@ const Favorites = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-<<<<<<< HEAD
       await api.post('http://localhost:5000/api/favorites', { modelId: selectedModelId }, {
-=======
-      await api.post('/api/favorites', { modelId: selectedModelId }, {
->>>>>>> 9d22085ec45dbcaa38475f5bd82f1b9fd2c4868b
         headers: { Authorization: `Bearer ${token}` }
       });
       setSelectedModelId('');
@@ -72,11 +60,7 @@ const Favorites = () => {
     if (!window.confirm('Remove this vehicle from favorites?')) return;
     try {
       const token = localStorage.getItem('token');
-<<<<<<< HEAD
       await api.delete(`http://localhost:5000/api/favorites/${favoriteId}`, {
-=======
-      await api.delete(`/api/favorites/${favoriteId}`, {
->>>>>>> 9d22085ec45dbcaa38475f5bd82f1b9fd2c4868b
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchFavorites();

@@ -1,5 +1,3 @@
-
-
 import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
@@ -8,16 +6,42 @@ const Navbar = () => {
   const location = useLocation();
   const { user, logout } = useContext(AuthContext);
 
-  // Only admin can see Models link
-  const navLinks = [
-    { to: '/', label: 'Home' },
-    ...(user && user.role === 'admin' ? [{ to: '/models', label: 'Models' }] : []),
-    { to: '/listings', label: 'Listings' },
-    { to: '/bookings', label: 'Bookings' },
-    { to: '/favorites', label: 'Favorites' },
-    { to: '/reviews', label: 'Reviews' },
-    { to: '/price-alerts', label: 'Price Alerts' },
-  ];
+  // Show different nav links depending on role
+  let navLinks = [];
+
+  if (!user) {
+    // public links
+    navLinks = [
+      { to: '/', label: 'Home' },
+      { to: '/listings', label: 'Listings' },
+    ];
+  } else if (user.role === 'dealer') {
+    // only dealer operations for dealers
+    navLinks = [
+      { to: '/dealer', label: 'Dashboard' },
+      { to: '/dealer/models', label: 'Models' },       // dealer-scoped models view
+      { to: '/dealer/listings', label: 'My Listings' },// dealer listing management (create/edit)
+      { to: '/dealer/bookings', label: 'Bookings' },   // dealer bookings (test rides)
+    ];
+  } else if (user.role === 'admin') {
+    // admin sees additional management links
+    navLinks = [
+      { to: '/', label: 'Home' },
+      { to: '/models', label: 'Models' },
+      { to: '/listings', label: 'Listings' },
+      { to: '/bookings', label: 'Bookings' },
+    ];
+  } else {
+    // regular authenticated user
+    navLinks = [
+      { to: '/', label: 'Home' },
+      { to: '/listings', label: 'Listings' },
+      { to: '/bookings', label: 'Bookings' },
+      { to: '/favorites', label: 'Favorites' },
+      { to: '/reviews', label: 'Reviews' },
+      { to: '/price-alerts', label: 'Price Alerts' },
+    ];
+  }
 
   return (
     <nav className="bg-gradient-to-r from-blue-900 to-blue-600 shadow-lg px-4 py-3 flex items-center justify-between">

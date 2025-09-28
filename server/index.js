@@ -9,6 +9,7 @@ import bookingsRouter from './routes/bookings.js';
 import reviewsRouter from './routes/reviews.js';
 import favoritesRouter from './routes/favorites.js';
 import priceAlertsRouter from './routes/priceAlerts.js';
+import dealerRouter from './routes/dealers.js';
 
 dotenv.config();
 const app = express();
@@ -19,11 +20,12 @@ app.use(express.json());
 // Routes
 app.use('/api/models', modelsRouter);
 app.use('/api/listings', listingsRouter);
-app.use('/api/users', usersRouter);
+app.use('/api/user', usersRouter);
 app.use('/api/bookings', bookingsRouter);
 app.use('/api/reviews', reviewsRouter);
 app.use('/api/favorites', favoritesRouter);
 app.use('/api/price-alerts', priceAlertsRouter);
+app.use('/api/dealer',dealerRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 const Register = () => {
   const { register } = useContext(AuthContext);
-  const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' });
+  const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '', role: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -13,10 +13,20 @@ const Register = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const handleRoleSelect = (role) => {
+    setForm({ ...form, role });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+
+    if (!form.role) {
+      setError('Please select whether you are a Dealer or Seller');
+      setLoading(false);
+      return;
+    }
 
     if (form.password !== form.confirmPassword) {
       setError('Passwords do not match');
@@ -34,7 +44,8 @@ const Register = () => {
       await register({
         name: form.name,
         email: form.email,
-        password: form.password
+        password: form.password,
+        role: form.role,
       });
       navigate('/');
     } catch (err) {
@@ -45,11 +56,11 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-blue-50 to-yellow-50">
+    <div className="min-h-[70vh] flex items-center justify-center bg-gradient-to-br from-blue-50 to-yellow-50">
       <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full">
         <div className="text-center mb-6">
           <h2 className="text-3xl font-bold text-blue-900 mb-2">Join Vahan Bazar</h2>
-          <p className="text-gray-600">Create your account to get started</p>
+          <p className="text-gray-600">Create your account as a Dealer or Seller</p>
         </div>
 
         {error && (
@@ -57,6 +68,32 @@ const Register = () => {
             {error}
           </div>
         )}
+
+        {/* Role Selection */}
+        <div className="grid grid-cols-2 gap-4 mb-6">
+          <button
+            type="button"
+            onClick={() => handleRoleSelect('dealer')}
+            className={`p-4 rounded-lg border-2 text-center font-semibold transition ${
+              form.role === 'dealer'
+                ? 'border-blue-900 bg-blue-50 text-blue-900'
+                : 'border-gray-300 text-gray-700 hover:border-blue-500'
+            }`}
+          >
+            I’m a Dealer
+          </button>
+          <button
+            type="button"
+            onClick={() => handleRoleSelect('user')}
+            className={`p-4 rounded-lg border-2 text-center font-semibold transition ${
+              form.role === 'user'
+                ? 'border-yellow-500 bg-yellow-50 text-yellow-600'
+                : 'border-gray-300 text-gray-700 hover:border-yellow-400'
+            }`}
+          >
+            I’m a Seller
+          </button>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>

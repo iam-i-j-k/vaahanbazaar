@@ -23,11 +23,7 @@ const Listings = () => {
 
   const fetchListings = async () => {
     try {
-<<<<<<< HEAD
       const res = await api.get('http://localhost:5000/api/listings');
-=======
-      const res = await api.get('/api/listings');
->>>>>>> 9d22085ec45dbcaa38475f5bd82f1b9fd2c4868b
       setListings(res.data);
     } catch (err) {
       setError('Failed to fetch listings');
@@ -36,11 +32,7 @@ const Listings = () => {
 
   const fetchModels = async () => {
     try {
-<<<<<<< HEAD
       const res = await api.get('http://localhost:5000/api/models');
-=======
-      const res = await api.get('/api/models');
->>>>>>> 9d22085ec45dbcaa38475f5bd82f1b9fd2c4868b
       setModels(res.data);
     } catch (err) {
       console.error('Failed to fetch models');
@@ -72,11 +64,7 @@ const Listings = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-<<<<<<< HEAD
       await api.post('http://localhost:5000/api/listings', form, {
-=======
-      await api.post('/api/listings', form, {
->>>>>>> 9d22085ec45dbcaa38475f5bd82f1b9fd2c4868b
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setForm({
