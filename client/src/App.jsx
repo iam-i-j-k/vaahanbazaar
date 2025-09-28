@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
@@ -15,11 +14,13 @@ import Bookings from './pages/Bookings';
 import Favorites from './pages/Favorites';
 import Reviews from './pages/Reviews';
 import PriceAlerts from './pages/PriceAlerts';
+import DealerDashboard from './pages/DealerDashboard';
+import DealersListing from './pages/DealersListing';
 
 function App() {
   return (
-    <AuthProvider>
       <Router>
+    <AuthProvider>
         <Navbar />
         <div style={{ padding: 24 }}>
           <Routes>
@@ -27,17 +28,31 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
-            <Route path="/models" element={<Models />} />
+            <Route path="/dealer/models" element={
+              <ProtectedRoute roles={['dealer']}>
+                <Models />
+              </ProtectedRoute>
+            }  />
             <Route path="/listings" element={<Listings />} />
             <Route path="/bookings" element={<ProtectedRoute><Bookings /></ProtectedRoute>} />
             <Route path="/favorites" element={<ProtectedRoute><Favorites /></ProtectedRoute>} />
             <Route path="/reviews" element={<ProtectedRoute><Reviews /></ProtectedRoute>} />
             <Route path="/price-alerts" element={<ProtectedRoute><PriceAlerts /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/dealer/*" element={
+              <ProtectedRoute roles={['dealer']}>
+                <DealerDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/dealer/listings" element={
+              <ProtectedRoute roles={['dealer']}>
+                <DealersListing />
+              </ProtectedRoute>
+            } />
           </Routes>
         </div>
-      </Router>
     </AuthProvider>
+    </Router>
   );
 }
 

@@ -4,20 +4,37 @@ import { useNavigate, Link } from 'react-router-dom';
 
 const Login = () => {
   const { login } = useContext(AuthContext);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [form, setForm] = useState({ email: '', password: '', role: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleRoleSelect = (role) => {
+    setForm({ ...form, role });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    
+
+    if (!form.role) {
+      setError('Please select whether you are a Dealer or Seller');
+      setLoading(false);
+      return;
+    }
+
     try {
-      await login(email, password);
-      navigate('/');
+      await login({
+        email: form.email,
+        password: form.password,
+        role: form.role,
+      });
+      
     } catch (err) {
       setError(err.response?.data?.error || 'Invalid credentials');
     } finally {
@@ -39,14 +56,41 @@ const Login = () => {
           </div>
         )}
 
+        {/* Role Selection */}
+        <div className="grid grid-cols-2 gap-4 mb-6">
+          <button
+            type="button"
+            onClick={() => handleRoleSelect('dealer')}
+            className={`p-3 rounded-lg border-2 text-center font-semibold transition ${
+              form.role === 'dealer'
+                ? 'border-blue-900 bg-blue-50 text-blue-900'
+                : 'border-gray-300 text-gray-700 hover:border-blue-500'
+            }`}
+          >
+            I’m a Dealer
+          </button>
+          <button
+            type="button"
+            onClick={() => handleRoleSelect('user')}
+            className={`p-3 rounded-lg border-2 text-center font-semibold transition ${
+              form.role === 'user'
+                ? 'border-yellow-500 bg-yellow-50 text-yellow-600'
+                : 'border-gray-300 text-gray-700 hover:border-yellow-400'
+            }`}
+          >
+            I’m a Seller
+          </button>
+        </div>
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
             <input
+              name="email"
               type="email"
               placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={form.email}
+              onChange={handleChange}
               required
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
@@ -55,10 +99,11 @@ const Login = () => {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
             <input
+              name="password"
               type="password"
               placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={form.password}
+              onChange={handleChange}
               required
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
@@ -84,8 +129,8 @@ const Login = () => {
 
         <div className="mt-4 p-3 bg-gray-50 rounded-lg">
           <p className="text-xs text-gray-600 mb-2">Demo Credentials:</p>
-          <p className="text-xs text-gray-600">Admin: admin@example.com / admin123</p>
-          <p className="text-xs text-gray-600">User: irfan@example.com / password123</p>
+          <p className="text-xs text-gray-600">Dealer: Dealer@example.com / Dealer123</p>
+          <p className="text-xs text-gray-600">Seller: seller@example.com / seller123</p>
         </div>
       </div>
     </div>

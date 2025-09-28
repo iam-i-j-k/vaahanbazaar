@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.get('/', getAllModels);
 router.get('/:id', getModelById);
-router.post('/', authenticate, authorize('admin'), createModel);
+router.post('/', authenticate, authorize('dealer'), createModel);
 
 export default router;
