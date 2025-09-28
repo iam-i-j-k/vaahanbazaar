@@ -17,6 +17,7 @@ import PriceAlerts from './pages/PriceAlerts';
 import DealerDashboard from './pages/DealerDashboard';
 import DealersListing from './pages/DealersListing';
 import Profile from './pages/Profile';
+import DealerBookings from './pages/DealerBookings';
 
 function App() {
   return (
@@ -53,6 +54,11 @@ function App() {
             <Route path="/dealer/profile" element={
               <ProtectedRoute roles={['dealer']}>
                 <Profile />
+              </ProtectedRoute>
+            } />
+            <Route path="/dealer/bookings" element={
+              <ProtectedRoute roles={['dealer']}>
+                <DealerBookings />
               </ProtectedRoute>
             } />
           </Routes>
