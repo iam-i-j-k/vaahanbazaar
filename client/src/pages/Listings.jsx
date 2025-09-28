@@ -3,8 +3,10 @@
 import { useEffect, useState, useContext } from "react"
 import { AuthContext } from "../contexts/AuthContext"
 import api from "../utils/api"
+import { useNavigate } from "react-router-dom"
 
 const Listings = () => {
+  const navigate = useNavigate()
   const { user } = useContext(AuthContext)
   const [listings, setListings] = useState([])
   const [filteredListings, setFilteredListings] = useState([])
@@ -475,10 +477,10 @@ const Listings = () => {
                   </div>
 
                   <div className="flex gap-3">
-                    <button className="flex-1 bg-blue-900 text-yellow-400 font-bold px-4 py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 text-sm">
+                    <button onClick={()=>navigate('/bookings')}className="flex-1 bg-blue-900 text-yellow-400 font-bold px-4 py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 text-sm">
                       Book Test Ride
                     </button>
-                    <button className="px-4 py-3 border-2 border-yellow-400 text-blue-900 rounded-lg hover:bg-yellow-50 transition-all duration-300">
+                    <button onClick={()=>navigate('/favorites')} className="px-4 py-3 border-2 border-yellow-400 text-blue-900 rounded-lg hover:bg-yellow-50 transition-all duration-300">
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path
                           strokeLinecap="round"
