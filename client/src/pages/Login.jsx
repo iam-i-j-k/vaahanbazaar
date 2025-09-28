@@ -78,7 +78,7 @@ const Login = () => {
                 : 'border-gray-300 text-gray-700 hover:border-yellow-400'
             }`}
           >
-            I’m a Seller
+            I’m a Buyer
           </button>
         </div>
 

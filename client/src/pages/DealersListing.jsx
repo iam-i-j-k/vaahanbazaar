@@ -51,7 +51,7 @@ const DealersListing = () => {
         <h2 className="text-2xl font-semibold">My Listings</h2>
         <div className="flex gap-2">
           <button onClick={fetchListings} className="px-3 py-1 bg-blue-600 text-white rounded">Refresh</button>
-          <Link to="/dealer/models" className="px-3 py-1 bg-green-600 text-white rounded">Add Listing</Link>
+          <Link to="/dealer/listings/new" className="px-3 py-1 bg-green-600 text-white rounded">Add Listing</Link>
         </div>
       </div>
 

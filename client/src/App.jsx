@@ -16,6 +16,7 @@ import Reviews from './pages/Reviews';
 import PriceAlerts from './pages/PriceAlerts';
 import DealerDashboard from './pages/DealerDashboard';
 import DealersListing from './pages/DealersListing';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -39,7 +40,7 @@ function App() {
             <Route path="/reviews" element={<ProtectedRoute><Reviews /></ProtectedRoute>} />
             <Route path="/price-alerts" element={<ProtectedRoute><PriceAlerts /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
-            <Route path="/dealer/*" element={
+            <Route path="/dealer/dashboard" element={
               <ProtectedRoute roles={['dealer']}>
                 <DealerDashboard />
               </ProtectedRoute>
@@ -47,6 +48,11 @@ function App() {
             <Route path="/dealer/listings" element={
               <ProtectedRoute roles={['dealer']}>
                 <DealersListing />
+              </ProtectedRoute>
+            } />
+            <Route path="/dealer/profile" element={
+              <ProtectedRoute roles={['dealer']}>
+                <Profile />
               </ProtectedRoute>
             } />
           </Routes>

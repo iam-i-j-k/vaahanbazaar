@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
-
+import Profile from '../pages/Profile';
 const Navbar = () => {
   const location = useLocation();
   const { user, logout } = useContext(AuthContext);
@@ -18,7 +18,7 @@ const Navbar = () => {
   } else if (user.role === 'dealer') {
     // only dealer operations for dealers
     navLinks = [
-      { to: '/dealer', label: 'Dashboard' },
+      { to: '/dealer/dashboard', label: 'Dashboard' },
       { to: '/dealer/models', label: 'Models' },       // dealer-scoped models view
       { to: '/dealer/listings', label: 'My Listings' },// dealer listing management (create/edit)
       { to: '/dealer/bookings', label: 'Bookings' },   // dealer bookings (test rides)
@@ -63,7 +63,7 @@ const Navbar = () => {
       <div className="flex gap-2 items-center">
         {user ? (
           <>
-            <span className="text-white font-semibold mr-2">{user.name || user.email}</span>
+            <Link to={`${user.role}/profile`} className="text-white font-semibold mr-2">{user.name || user.email}</Link>
             <button onClick={logout} className="bg-red-500 text-white font-semibold px-3 py-1 rounded hover:bg-red-600 transition">Logout</button>
           </>
         ) : (
